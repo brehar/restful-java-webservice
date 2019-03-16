@@ -1,6 +1,7 @@
 package me.bretthartman.mobileappws.ui.controller;
 
 import me.bretthartman.mobileappws.ui.model.request.UserDetailsRequestModel;
+import me.bretthartman.mobileappws.ui.model.response.UserRest;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,8 +19,8 @@ public class UserController {
   }
 
   @PostMapping
-  public String createUser(@RequestBody UserDetailsRequestModel userDetails) {
-    return "create user was called";
+  public UserRest createUser(@RequestBody UserDetailsRequestModel userDetails) {
+    return null;
   }
 
   @PutMapping
