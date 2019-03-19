@@ -1,5 +1,6 @@
 package me.bretthartman.mobileappws.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,7 +15,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
   private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
   public WebSecurity(
-      UserDetailsService userDetailsService, BCryptPasswordEncoder bCryptPasswordEncoder) {
+      @Autowired UserDetailsService userDetailsService,
+      @Autowired BCryptPasswordEncoder bCryptPasswordEncoder) {
     this.userDetailsService = userDetailsService;
     this.bCryptPasswordEncoder = bCryptPasswordEncoder;
   }
@@ -27,7 +29,9 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         .antMatchers(HttpMethod.POST, SecurityConstants.SIGN_UP_URL)
         .permitAll()
         .anyRequest()
-        .authenticated();
+        .authenticated()
+        .and()
+        .addFilter(new AuthenticationFilter(authenticationManager()));
   }
 
   @Override
